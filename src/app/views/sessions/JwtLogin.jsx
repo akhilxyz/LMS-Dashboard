@@ -7,6 +7,9 @@ import { Formik } from 'formik';
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { LoginApi } from "../ApiBackend/ApiBackend";
+import { useDispatch } from 'react-redux';
+import { setAuthToken } from '../../../redux/slices/authSlice';
 
 const FlexBox = styled(Box)(() => ({ display: 'flex', alignItems: 'center' }));
 
@@ -34,9 +37,9 @@ const JWTRoot = styled(JustifyBox)(() => ({
 
 // inital login credentials
 const initialValues = {
-  email: 'jason@ui-lib.com',
-  password: 'dummyPass',
-  remember: true
+  usernameOrEmail: '',
+  password: '',
+  remember: false
 };
 
 // form field validation schema
@@ -44,22 +47,27 @@ const validationSchema = Yup.object().shape({
   password: Yup.string()
     .min(6, 'Password must be 6 character length')
     .required('Password is required!'),
-  email: Yup.string().email('Invalid Email address').required('Email is required!')
-});
+    usernameOrEmail: Yup.string().required('Username or Email is required'),});
 
 const JwtLogin = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
 
   const handleFormSubmit = async (values) => {
+    console.log(values,"values");
     setLoading(true);
     try {
-      await login(values.email, values.password);
-      localStorage.setItem("isLogin", true);
-      navigate('/');
+      const response = await LoginApi(values)
+      console.log(response,"responseresponse");
+      if(response.status === true){
+        localStorage.setItem("isLogin", true);
+        navigate('/');
+        dispatch(setAuthToken(response.token)); 
+      }
     } catch (e) {
       setLoading(false);
     }
@@ -87,15 +95,15 @@ const JwtLogin = () => {
                     <TextField
                       fullWidth
                       size="small"
-                      type="email"
-                      name="email"
+                      type="usernameOrEmail"
+                      name="usernameOrEmail"
                       label="Email"
                       variant="outlined"
                       onBlur={handleBlur}
-                      value={values.email}
+                      value={values.usernameOrEmail}
                       onChange={handleChange}
-                      helperText={touched.email && errors.email}
-                      error={Boolean(errors.email && touched.email)}
+                      helperText={touched.usernameOrEmail && errors.usernameOrEmail}
+                      error={Boolean(errors.usernameOrEmail && touched.usernameOrEmail)}
                       sx={{ mb: 3 }}
                     />
 

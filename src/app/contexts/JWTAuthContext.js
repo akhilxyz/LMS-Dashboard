@@ -8,23 +8,6 @@ const initialState = {
   isAuthenticated: false
 };
 
-// const isValidToken = (accessToken) => {
-//   if (!accessToken) return false;
-
-//   const decodedToken = jwtDecode(accessToken);
-//   const currentTime = Date.now() / 1000;
-//   return decodedToken.exp > currentTime;
-// };
-
-// const setSession = (accessToken) => {
-//   if (accessToken) {
-//     localStorage.setItem('accessToken', accessToken);
-//     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-//   } else {
-//     localStorage.removeItem('accessToken');
-//     delete axios.defaults.headers.common.Authorization;
-//   }
-// };
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -44,10 +27,9 @@ const reducer = (state, action) => {
 
     case 'REGISTER': {
       const { user } = action.payload;
-
       return { ...state, isAuthenticated: true, user };
     }
-
+    
     default:
       return state;
   }
@@ -67,14 +49,12 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     const response = await axios.post('/api/auth/login', { email, password });
     const { user } = response.data;
-
     dispatch({ type: 'LOGIN', payload: { user } });
   };
 
   const register = async (email, username, password) => {
     const response = await axios.post('/api/auth/register', { email, username, password });
     const { user } = response.data;
-
     dispatch({ type: 'REGISTER', payload: { user } });
   };
 

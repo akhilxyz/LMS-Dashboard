@@ -18,6 +18,9 @@ const AppEchart = Loadable(lazy(() => import('app/views/charts/echarts/AppEchart
 // dashboard page
 const Analytics = Loadable(lazy(() => import('app/views/dashboard/Analytics')));
 
+// course page
+const Course = Loadable(lazy(() => import('app/views/courses/MyCources')));
+
 const routes = [
   {
     element: (
@@ -27,10 +30,18 @@ const routes = [
     ),
     children: [
       ...materialRoutes,
+      
       // dashboard route
       {
         path: '/dashboard/default',
         element: <Analytics />,
+        auth: authRoles.admin
+      },
+
+      //courses route
+      {
+        path: '/courses',
+        element: <Course/>,
         auth: authRoles.admin
       },
 

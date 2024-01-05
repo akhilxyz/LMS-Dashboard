@@ -1,0 +1,58 @@
+
+.courses-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.courses-table th, .courses-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.operations-cell {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn {
+  color: #1976D2;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  color: red;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.courses_top{
+  padding:20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.courses_top button{
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+  color:whitesmoke;
+  background-color: #1976D2;
+}
+.modal-dialog.modal-dialog-centered{
+  position: absolute;
+    top: 0%;
+    right: 50%;
+    transform: translate(-0%, -0%);
+    background: gray;
+    padding: 30px;
+}
+.toast_btn{
+  border: none;
+  margin-right: 20px;
+  color: #1976D2;
+  padding: 2px 10px;
+}
+
+

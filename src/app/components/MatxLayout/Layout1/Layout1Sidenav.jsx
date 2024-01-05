@@ -77,7 +77,7 @@ const Layout1Sidenav = () => {
               color="secondary"
               size="small"
             />
-          </Hidden>
+          </Hidden> 
         </Brand>
         <Sidenav />
       </NavListBox>
