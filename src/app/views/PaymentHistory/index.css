@@ -1,0 +1,43 @@
+.centered-container {
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    height: 100vh; /* Set height of container to full viewport height */
+  }
+  
+  /* Apply styles to the centered content */
+  .centered-content {
+    text-align: center;
+  }
+  
+
+  
+.courses-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .courses-table th, .courses-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  .operations-cell {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .edit-btn {
+    color: #1976D2;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .delete-btn {
+    color: red;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
