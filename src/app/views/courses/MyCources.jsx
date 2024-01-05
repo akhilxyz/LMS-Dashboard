@@ -135,7 +135,7 @@ const MyCourses = () => {
           </tr>
         </thead>
         <tbody>
-          {courses.map((course, index) => (
+          {courses?.map((course, index) => (
             <tr key={course.id}>
               <td>{index + 1}</td>
               <td>{course?.title}</td>

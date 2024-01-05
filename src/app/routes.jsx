@@ -21,6 +21,9 @@ const Analytics = Loadable(lazy(() => import('app/views/dashboard/Analytics')));
 // course page
 const Course = Loadable(lazy(() => import('app/views/courses/MyCources')));
 
+// payment history
+const History = Loadable(lazy(() => import('app/views/PaymentHistory/History')));
+
 const routes = [
   {
     element: (
@@ -42,6 +45,13 @@ const routes = [
       {
         path: '/courses',
         element: <Course/>,
+        auth: authRoles.admin
+      },
+
+      //payment history route
+      {
+        path: '/PaymentHistory',
+        element: <History/>,
         auth: authRoles.admin
       },
 
