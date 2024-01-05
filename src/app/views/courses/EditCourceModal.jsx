@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 
 
-const EditCourceModal = ({ isOpen, onClose, courseId, courseDetails }) => {
+const EditCourceModal = ({ isOpen, onClose, courseId, courseDetails, onCourseUpdated}) => {
   const formik = useFormik({
     initialValues: {
       title: courseDetails?.title || '',
@@ -36,6 +36,7 @@ const EditCourceModal = ({ isOpen, onClose, courseId, courseDetails }) => {
       subject: Yup.string().required('Subject is required'),
       level: Yup.string().required('Level is required'),
     }),
+    
     onSubmit: async (values) => {
       if (!courseId) {
         console.error("Missing courseId for updateCourse");
@@ -51,6 +52,7 @@ const EditCourceModal = ({ isOpen, onClose, courseId, courseDetails }) => {
             autoClose: 2000,
             theme: "colored"
           });
+          onCourseUpdated(courseId, values);
           onClose(); 
         } else {
           toast.error("Failed to update course", {
@@ -70,6 +72,7 @@ const EditCourceModal = ({ isOpen, onClose, courseId, courseDetails }) => {
     },
     
   });
+  
   useEffect(() => {
     if (isOpen && courseDetails && courseDetails.length > 0) {
       const courseDetailsData = courseDetails[0]; // Access the first object in the array

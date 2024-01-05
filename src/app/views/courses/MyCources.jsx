@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCourse } from "../ApiBackend/ApiBackend"
 
+
 const MyCourses = () => {
   const [courses, setCourses] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -32,15 +33,13 @@ const MyCourses = () => {
       console.error('Error fetching course details:', error);
     }
   };
-  
-  const handleEditCourse = (editedCourse) => {
-    setCourses((prevCourses) =>
-      prevCourses.map((course) =>
-        course._id === editedCourse._id ? editedCourse : course
-      )
-    );
-      handleCloseEditModal();
+  const handleCourseUpdated = (courseId, updatedValues) => {
+    setCourses(prevCourses => prevCourses.map(course => course._id === courseId ? {
+      ...course,
+      ...updatedValues
+    } : course));
   };
+  
   const handleCloseEditModal = () => {
     setShowEditModal(false);
     setEditCourseId(null);
@@ -151,7 +150,13 @@ const MyCourses = () => {
 
         </tbody>
       </table>
-      <EditCourceModal isOpen={showEditModal}onClose={handleCloseEditModal}courseId={editCourseId}courseDetails={editCourseDetails}  onEditCourse={handleEditCourse} />
+      <EditCourceModal 
+           isOpen={showEditModal}
+           onClose={handleCloseEditModal}
+           courseId={editCourseId}
+           courseDetails={editCourseDetails}
+           onCourseUpdated={handleCourseUpdated} 
+           />
       <AddCourseModal isOpen={showModal} onClose={handleCloseModal} onAddCourse={handleAddCourse} />
       <ToastContainer/>
     </>
