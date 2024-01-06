@@ -74,6 +74,7 @@ const EditCourceModal = ({ isOpen, onClose, courseId, courseDetails, onCourseUpd
   });
   
   useEffect(() => {
+    console.log("courseDetails===========", courseDetails)
     if (isOpen && courseDetails && courseDetails.length > 0) {
       const courseDetailsData = courseDetails[0]; // Access the first object in the array
       formik.setValues({

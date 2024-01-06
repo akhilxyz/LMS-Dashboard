@@ -6,7 +6,7 @@ import EditCourceModal from "./EditCourceModal";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCourse } from "../ApiBackend/ApiBackend"
-
+import Loading from 'app/components/MatxLoading';
 
 const MyCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -14,6 +14,9 @@ const MyCourses = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [editCourseId, setEditCourseId] = useState(null);
   const [editCourseDetails, setEditCourseDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+   console.log(courses," cources");
 
   const handleAddCourseClick = () => {
     setShowModal(true);
@@ -26,8 +29,9 @@ const MyCourses = () => {
   const handleEdit = async (_id) => {
     try {
       const courseDetails = await fetchCourseDetails(_id);
+      console.log(courseDetails,"courseDetails");
       setEditCourseId(_id);
-      setEditCourseDetails(courseDetails);
+      setEditCourseDetails([courseDetails.course]);
       setShowEditModal(true);
     } catch (error) {
       console.error('Error fetching course details:', error);
@@ -98,7 +102,12 @@ const MyCourses = () => {
       try {
         const response = await AllCourses();
         console.log(response);
-        setCourses(response);
+        if (Array.isArray(response?.courses)) {
+          setCourses(response.courses);
+          setLoading(false)
+        } else {
+          console.error('Invalid response structure:', response);
+        }
       } catch (error) {
         console.error('Error fetching courses:', error);
       }
@@ -109,13 +118,17 @@ const MyCourses = () => {
   const fetchCourseDetails = async (_id) => {
     try {
       const response = await getCourse(_id);
-      console.log(response, ">>>>>>>>>>>>>>>");
+      console.log(response, "get >>>>>>>>>>>>>>>");
       return response;
     } catch (error) {
       console.error('Error fetching course details:', error);
       throw error;
     }
   };
+   
+  if (loading) {
+    return <div className="loader"><Loading/></div>; 
+  }
 
   return (
     <>
@@ -135,7 +148,7 @@ const MyCourses = () => {
         </thead>
         <tbody>
           {courses?.map((course, index) => (
-            <tr key={course.id}>
+            <tr key={course._id}>
               <td>{index + 1}</td>
               <td>{course?.title}</td>
               <td>{course?.description}</td>

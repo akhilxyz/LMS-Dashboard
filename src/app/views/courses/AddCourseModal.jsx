@@ -39,7 +39,7 @@ const AddCourseModal = ({ isOpen, onClose, onAddCourse }) => {
     onSubmit: async (values) => {
       const res = await AddCource(values);
       console.log(res, "AddCource");
-      if (res.status === true && res._id) {
+      if (res.status === true) {
         console.log("cource added successfully");
         toast.success("Cource Added Successfully", {
           position: "top-center",

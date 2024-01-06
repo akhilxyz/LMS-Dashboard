@@ -10,7 +10,12 @@
     text-align: center;
   }
   
-
+.loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
   
 .courses-table {
     border-collapse: collapse;

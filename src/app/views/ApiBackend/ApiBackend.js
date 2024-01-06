@@ -13,7 +13,7 @@ export const LoginApi= async(values)=>{
       return response.data; 
     } catch (error) {
       console.log("EEE", error)
-      throw error;
+      return error;
     }
   }
 
@@ -28,7 +28,7 @@ export const LoginApi= async(values)=>{
       return response.data; 
     } catch (error) {
       console.log("EEE", error)
-      throw error;
+      return error;
     }
   }
 
@@ -57,7 +57,7 @@ export const LoginApi= async(values)=>{
          console.log("AddCourse is added successfully:", data);
          return data
     } catch (error) {
-      throw error;
+      return error;
       
     }
   }
@@ -74,7 +74,7 @@ export const LoginApi= async(values)=>{
       return response.data; 
     } catch (error) {
       console.log("EEE", error);
-      throw error;
+      return error;
     }
   }
   export const getCourse = async (_id) => {
@@ -89,7 +89,7 @@ export const LoginApi= async(values)=>{
       return response.data; 
     } catch (error) {
       console.log("EEE", error);
-      throw error;
+      return error;
     }
   }
 
@@ -107,7 +107,23 @@ export const LoginApi= async(values)=>{
       return response.data; 
     } catch (error) {
       console.log("EEE", error);
-      throw error;
+      return error;
     }
   }
-  
+    
+
+ export const GetPaymentHistory = async(values)=>{
+  try {
+    const response = await axios.get(`${Base_url}/user/payment/getDetails`,values, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('API response:', response);
+    return response.data; 
+
+  } catch (error) {
+    console.log("EEE", error);
+    return error;
+  }
+ } 
