@@ -1,0 +1,46 @@
+.user_id a{
+    text-decoration: none;
+}
+ul.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+ul.pagination li{
+    cursor: pointer;
+}
+
+span.badge.text-bg-danger {
+    padding: 8px 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 86px;
+    width: 100%;
+}
+span.badge.text-bg-success {
+    padding: 8px 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 86px;
+    width: 100%;
+}
+.payment-history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.search-filter {
+    margin-left: 10px;
+  
+}
+
+.nav-pagee{
+    position: fixed;
+    justify-content: center;
+    margin-left:40%;
+    margin-right:40%
+}

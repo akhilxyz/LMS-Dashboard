@@ -1,0 +1,82 @@
+.fade.modal.show{
+    position: absolute;
+    top: 50%;
+    left: 67%;
+    transform: translate(-50%, -50%);
+    padding: 30px 15px;
+    width: 100%;
+    border-radius: 5px 
+}
+
+.modal-dialog.modal-dialog-centered {
+    padding: 0;
+    margin:35px 0px 0px 0px;
+    background-color: transparent;
+}
+.modal-body {
+    padding: 15px 30px;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+.modal-header svg{
+    font-size: 30px;
+}
+.modal-title.h4 {
+    font-size: 30px;
+    font-weight: 800;
+    padding-bottom: 0px;
+}
+.row_inner {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+.mb-3{
+    width: 50%;
+    margin-bottom: 10px;
+}
+.mb-3 label{
+    font-size: 16px;
+}
+.col{
+    width: 100%;
+}
+.mb-3.col input{
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+}
+textarea#description {
+    height: 20vh;
+    width: 100%;
+    padding: 4px 10px;
+    outline: none;
+    border-radius: 3px;
+}
+.modal-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.modal-footer{
+    padding: 6px 10px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+}
+.submitt_course{
+    background-color: #ccc;
+    color:black;
+    width: 100%;
+    border: none;
+}
+.imgURLL{
+    width: 50vh;
+}

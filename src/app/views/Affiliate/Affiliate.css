@@ -1,0 +1,10 @@
+.buttoon{
+    display: flex;
+        /* justify-content: space-between; */
+        align-items: baseline;
+        
+}
+
+.btn-success{
+    margin-right: 10px;
+}
