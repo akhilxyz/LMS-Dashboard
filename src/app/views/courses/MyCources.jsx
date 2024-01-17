@@ -8,9 +8,12 @@ import { NavLink } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCourse } from "../ApiBackend/ApiBackend"
 import Loading from 'app/components/MatxLoading';
+import { useSelector } from 'react-redux';
+
 
 
 const MyCourses = () => {
+  const token= useSelector((state) => state.authToken);
   const [courses, setCourses] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -19,6 +22,7 @@ const MyCourses = () => {
   const [loading, setLoading] = useState(true);
   const [expandState, setExpandState] = useState(null);
   const [search, setSearch] = useState("");
+  const [courseAdded, setCourseAdded] = useState(false);
 
  
 
@@ -81,7 +85,7 @@ const MyCourses = () => {
   const handleConfirmDelete = async (_id) => {
     try {
       toast.dismiss();
-      const deletedCourse = await DeleteCourse(_id);
+      const deletedCourse = await DeleteCourse(token,_id);
       // console.log(deletedCourse, "deletedCourse>>>>>>>>>>>>>>");
   
       setCourses((prevCourses) => prevCourses.filter((course) => course._id !== _id));
@@ -102,9 +106,10 @@ const MyCourses = () => {
 
   const handleAddCourse = async () => {
     try {
-      const response = await AllCourses();
+      const response = await AllCourses(token);
       console.log(response);
       setCourses(response);
+      // handleCloseModal();
     } catch (error) {
       console.error('Error fetching courses:', error);
     }
@@ -113,7 +118,7 @@ const MyCourses = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await AllCourses();
+        const response = await AllCourses(token);
         // console.log("responseeeeeeee",response);
         if (Array.isArray(response?.courses)) {
           setCourses(response.courses);
@@ -126,11 +131,11 @@ const MyCourses = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [showModal, showEditModal]);
 
   const fetchCourseDetails = async (_id) => {
     try {
-      const response = await getCourse(_id);
+      const response = await getCourse(token,_id);
       // console.log(response, "get >>>>>>>>>>>>>>>");
       return response;
     } catch (error) {
@@ -216,14 +221,14 @@ const MyCourses = () => {
 
         </tbody>
       </table>
-      <EditCourceModal 
+      {/* <EditCourceModal 
            isOpen={showEditModal}
            onClose={handleCloseEditModal}
            courseId={editCourseId}
            courseDetails={editCourseDetails}
            onCourseUpdated={handleCourseUpdated} 
-           />
-      <AddCourseModal isOpen={showModal} onClose={handleCloseModal} onAddCourse={handleAddCourse} />
+           /> */}
+      <AddCourseModal isOpen={showModal} onClose={handleCloseModal} onAddCourse={() => { setCourseAdded(true); handleAddCourse() }} />
       <ToastContainer/>
     </>
   );

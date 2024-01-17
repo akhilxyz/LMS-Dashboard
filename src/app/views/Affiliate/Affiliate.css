@@ -8,3 +8,24 @@
 .btn-success{
     margin-right: 10px;
 }
+ul.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+ul.pagination li {
+    cursor: pointer;
+}
+.search-filter {
+    margin-left: 10px;
+
+}
+
+.nav-pagee {
+    position: fixed;
+    justify-content: center;
+    margin-left: 40%;
+    margin-right: 40%
+}

@@ -3,4 +3,4 @@ import AuthContext from 'app/contexts/JWTAuthContext'
 
 const useAuth = () => useContext(AuthContext)
 
-export default useAuth
+export default useAuth;

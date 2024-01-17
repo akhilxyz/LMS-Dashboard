@@ -7,10 +7,16 @@ import { AddCource } from "../ApiBackend/ApiBackend";
 import "./AddCourseModal.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect } from 'react';
+import { useEffect ,useState} from 'react';
+import { useSelector } from'react-redux';
+import { useRef } from 'react';
 
 
 const AddCourseModal = ({ isOpen, onClose, onAddCourse }) => {
+  const token = useSelector((state) => state.authToken);
+  const [courseAdded, setCourseAdded] = useState(false);
+  const isMountedRef= useRef(true);
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -37,7 +43,7 @@ const AddCourseModal = ({ isOpen, onClose, onAddCourse }) => {
       level: Yup.string().required('Level is required'),
     }),
     onSubmit: async (values) => {
-      const res = await AddCource(values);
+      const res = await AddCource(token,values);
       console.log(res, "AddCource");
       if (res.status === true) {
         console.log("cource added successfully");
@@ -46,21 +52,31 @@ const AddCourseModal = ({ isOpen, onClose, onAddCourse }) => {
           autoClose: 2000,
           theme: "colored"
         })
-        onAddCourse();
-        onClose();
+        // onClose();
+        // onAddCourse();
+        setCourseAdded(true);
+        
       }
 
     },
   });
+  const handleCloseModal = () => {
+    onClose()
+  }
   useEffect(() => {
-    if (isOpen) {
-      formik.resetForm();
+    if (isMountedRef.current && courseAdded && isOpen) {
+      // formik.resetForm();
+    onAddCourse();
+    onClose();
     }
-  }, [isOpen]);
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, [courseAdded,onAddCourse,onClose]);
 
   return (
     <>
-      <Modal show={isOpen} onHide={onClose} centered>
+      <Modal show={isOpen} onHide={handleCloseModal} centered>
         <Modal.Header>
           <Modal.Title> Add Course</Modal.Title>
           <IoCloseSharp onClick={onClose} style={{ cursor: 'pointer' }} />

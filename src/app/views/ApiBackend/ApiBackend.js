@@ -17,11 +17,27 @@ export const LoginApi = async (values) => {
   }
 };
 
-export const AllCourses = async (values) => {
+export const AllCourses = async (token,values) => {
   try {
     const response = await axios.get(`${Base_url}/user/allCourses`, values, {
       headers: {
         "Content-Type": "application/json",
+        "x-api-authorization": token,
+      },
+    });
+    console.log("API response:", response);
+    return response.data;
+  } catch (error) {
+    console.log("EEE", error);
+    return error;
+  }
+};
+export const GetAllDetails = async (token,values) => {
+  try {
+    const response = await axios.get(`${Base_url}/user/payment/getAllDetails`, values, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-authorization": token,
       },
     });
     console.log("API response:", response);
@@ -32,7 +48,7 @@ export const AllCourses = async (values) => {
   }
 };
 
-export const AddCource = async (values) => {
+export const AddCource = async (token,values) => {
   const {
     title,
     description,
@@ -50,6 +66,7 @@ export const AddCource = async (values) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-api-authorization": token,
       },
       body: JSON.stringify({
         title,
@@ -72,7 +89,7 @@ export const AddCource = async (values) => {
   }
 };
 
-export const DeleteCourse = async (_id) => {
+export const DeleteCourse = async (token,_id) => {
   console.log("iam inn");
   try {
     const response = await axios.delete(
@@ -80,6 +97,7 @@ export const DeleteCourse = async (_id) => {
       {
         headers: {
           "Content-Type": "application/json",
+          "x-api-authorization": token,
         },
       }
     );
@@ -90,12 +108,33 @@ export const DeleteCourse = async (_id) => {
     return error;
   }
 };
-export const getCourse = async (_id) => {
+export const DeleteLesson = async (token, _id) => {
+  console.log("iam inn deleyeimbg lessons");
+  try {
+    const response = await axios.delete(
+      `${Base_url}/user/deleteLesson/${_id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-authorization": token,
+        },
+      }
+    );
+    console.log("API response:", response);
+    return response.data;
+  } catch (error) {
+    console.log("EEE", error);
+    return error;
+  }
+};
+
+export const getCourse = async (token,_id) => {
   console.log("iam inn");
   try {
     const response = await axios.get(`${Base_url}/user/getCourse/${_id}`, {
       headers: {
         "Content-Type": "application/json",
+        "x-api-authorization": token,
       },
     });
     console.log("API response:", response);
@@ -106,7 +145,7 @@ export const getCourse = async (_id) => {
   }
 };
 
-export const EditCource = async ({ _id, values }) => {
+export const EditCource = async (token,{ _id, values }) => {
   console.log(values, "reqqqqqqq");
   console.log("iam inn");
   try {
@@ -116,6 +155,8 @@ export const EditCource = async ({ _id, values }) => {
       {
         headers: {
           "Content-Type": "application/json",
+          "x-api-authorization": token,
+         
         },
       }
     );
@@ -126,14 +167,42 @@ export const EditCource = async ({ _id, values }) => {
     return error;
   }
 };
+export const EditLesson = async (token, { _id, values }) => {
+  console.log(values, "reqqqqqqq");
+  console.log("iam inn Lessons");
+  const { title, content, videoUrl } = values;
+  // console.log("Tokem  ",token)
+  try {
+    const response = await axios.post(`${Base_url}/user/updateLesson/${_id}`,JSON.stringify({ title, content, videoUrl }), {
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-authorization": token,
+      },
+      
+    });
+    console.log("API response:", response);
+    return response.data;
+  } catch (error) {
+    console.log("EEE", error);
+    return error;
+  }
+};
 
-export const GetPaymentHistory = async (item = 10, page = 1, signal) => {
+
+export const GetPaymentHistory = async (
+  token,
+  item = 10,
+  page = 1,
+  searchQuery = "",
+  signal
+) => {
   try {
     const response = await axios.get(
-      `${Base_url}/user/payment/getDetails/?page=${page}&itemsPerPage=${item}`,
+      `${Base_url}/user/payment/getDetails/?page=${page}&itemsPerPage=${item}&search=${searchQuery}`,
       {
         headers: {
           "Content-Type": "application/json",
+          "x-api-authorization": token,
         },
         cancelToken: signal ? signal.token : undefined,
       }
@@ -146,7 +215,7 @@ export const GetPaymentHistory = async (item = 10, page = 1, signal) => {
   }
 };
 
-export const GetPaymentHistoryById = async (userId) => {
+export const GetPaymentHistoryById = async (token,userId) => {
   try {
     const response = await axios.get(
       `${Base_url}/user/getUserbyID/${userId}`,
@@ -154,6 +223,7 @@ export const GetPaymentHistoryById = async (userId) => {
       {
         headers: {
           "Content-Type": "application/json",
+          "x-api-authorization": token,
         },
       }
     );
@@ -164,7 +234,7 @@ export const GetPaymentHistoryById = async (userId) => {
     return error;
   }
 };
-export const GetCoursesById = async (courseId) => {
+export const GetCoursesById = async (token,courseId) => {
   try {
     const response = await axios.get(
       `${Base_url}/user/getCourse/${courseId}`,
@@ -172,6 +242,7 @@ export const GetCoursesById = async (courseId) => {
       {
         headers: {
           "Content-Type": "application/json",
+          "x-api-authorization": token,
         },
       }
     );
@@ -182,7 +253,7 @@ export const GetCoursesById = async (courseId) => {
     return error;
   }
 };
-export const GetLessonsById = async (courseId) => {
+export const GetLessonsById = async (token,courseId) => {
   try {
     const response = await axios.get(
       `${Base_url}/user/allcourses/${courseId}`,
@@ -190,6 +261,7 @@ export const GetLessonsById = async (courseId) => {
       {
         headers: {
           "Content-Type": "application/json",
+          "x-api-authorization": token,
         },
       }
     );
@@ -200,12 +272,74 @@ export const GetLessonsById = async (courseId) => {
     return error;
   }
 };
+// export const AddLesson = async (token,courseId,values) => {
+ 
+//   const obj = [
+//     {
+//       title,
+//       content,
+//       videoUrl,
+//     },
+//   ];
 
-export const GetReferralLink = async (token) => {
+//   console.log("values", obj);
+//   try {
+//     const resp = await fetch(`${Base_url}/user/addMultipleLesson`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         "x-api-authorization": token,
+//       },
+//       body: JSON.stringify({
+       
+//         obj,
+//         course: "657ff9b6d80be2372caff21d",
+//       }),
+//     });
+//     const data = await resp.json();
+//     console.log("AddCourse is added successfully:", data);
+//     return data;
+//   } catch (error) {
+//     return error;
+//   }
+// };
+
+export const AddLesson = async (token, values) => {
+  const { lessons,course } = values;
+  
+
+  try {
+    const resp = await fetch(`${Base_url}/user/addMultipleLesson`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-authorization": token,
+      },
+      body: JSON.stringify({
+        lessons,
+        course,
+      }),
+    });
+
+    const data = await resp.json();
+    console.log("AddLesson is added successfully:", data);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+
+export const GetReferralLink = async (
+  token,
+  item = 10,
+  page = 1,
+  searchQuery =''
+) => {
   try {
     // console.log("Token ", localStorage.getItem("token"))
     const response = await axios.get(
-      `${Base_url}/user/pendingRequests`,
+      `${Base_url}/user/pendingRequests/?page=${page}&itemsPerPage=${item}&search=${searchQuery}`,
 
       {
         headers: {

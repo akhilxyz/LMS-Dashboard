@@ -4,10 +4,14 @@ import { useLocation, useParams } from 'react-router-dom';
 import { GetPaymentHistoryById } from '../ApiBackend/ApiBackend';
 import { useEffect, useState } from 'react';
 import bootstrap from 'bootstrap';
+import { useSelector } from "react-redux";
+
 
 const Historydetail = () => {
+  const token = useSelector((state) => state.authToken);
   const { userId } = useParams();
   const location = useLocation();
+
   console.log(location,"location===========");
   // const userId = location.state ? location.state.userId : null;
   console.log(userId, "userIddddddddd");
@@ -20,7 +24,7 @@ const Historydetail = () => {
     const fetchUserDetails = async () => {
       try {
 
-        const response = await GetPaymentHistoryById(userId);
+        const response = await GetPaymentHistoryById(token,userId);
         if (response.status === 200) {
           console.log("prespnosfaegfryukdl",response.data);
           setUserDetails(response.data.userData);

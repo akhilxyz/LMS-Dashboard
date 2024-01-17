@@ -78,5 +78,16 @@ textarea#description {
     border: none;
 }
 .imgURLL{
-    width: 50vh;
+    width: 5
+    
+    0vh;
 }
+.addLesson{
+    width: auto;
+    justify-content: center;
+    display: flex;
+    margin-left: 220px;
+    border-radius: 20px;
+   
+}
+
